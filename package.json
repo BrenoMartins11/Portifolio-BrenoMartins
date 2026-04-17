@@ -1,0 +1,13 @@
+{
+  "name": "portifolio-brenomartins",
+  "private": true,
+  "scripts": {
+    "start": "npm --prefix portfolio-cra start",
+    "dev": "npm --prefix portfolio-cra start",
+    "build": "npm --prefix portfolio-cra run build",
+    "test": "npm --prefix portfolio-cra test"
+  },
+  "devDependencies": {
+    "vite": "^5.4.21"
+  }
+}
