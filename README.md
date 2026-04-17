@@ -135,4 +135,9 @@ npm run build
 
 ## Contato
 
-Se quiser ajustar conteúdo, projetos ou links sociais, edite `portfolio-cra/src/App.tsx`.
+### Contato do desenvolvedor
+
+- E-mail: `brenodev256@gmail.com`
+- GitHub: `https://github.com/BrenoMartins11`
+- LinkedIn: `https://www.linkedin.com/in/breno-martins-`
+- Instagram: `https://www.instagram.com/breno.dev._`
