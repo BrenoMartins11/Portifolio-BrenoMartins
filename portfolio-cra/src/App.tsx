@@ -96,7 +96,7 @@ export default function App() {
             <div className="relative mb-6">
               <div className="w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden border-4 border-indigo-500 shadow-xl shadow-indigo-500/20 relative z-10 bg-slate-800 flex items-center justify-center">
                 <img 
-                  src="C:\Users\Breno Sousa\Documents\Portifolio-BrenoMartins\portfolio-cra\public\fotodeperfil.JPG" 
+                  src="/fotodeperfil.JPG"
                   alt="Foto de perfil de Breno Martins" 
                   className="w-full h-full object-cover"
                   onError={(e) => {
