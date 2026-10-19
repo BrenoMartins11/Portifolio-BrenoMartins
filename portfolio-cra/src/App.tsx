@@ -10,6 +10,10 @@ import './index.css';
 export default function App() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  
+  // Estado para controlar o Modal de Vídeo/Demonstração
+  const [videoModalOpen, setVideoModalOpen] = useState(false);
+  const [activeVideo, setActiveVideo] = useState('');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,7 +33,7 @@ export default function App() {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-900 text-slate-50 selection:bg-indigo-500/30 font-sans">
+    <div className="min-h-screen bg-slate-900 text-slate-50 selection:bg-indigo-500/30 font-sans relative">
       {/* Navbar */}
       <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-slate-900/90 backdrop-blur-md shadow-lg shadow-black/20' : 'bg-transparent'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -302,17 +306,26 @@ export default function App() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {[
                 {
-                  title: 'Projeto 1',
-                  desc: 'Lore ipsum dolor sit amet, consectetur adipiscing elit.',
-                  techs: ['React', 'Node.js', 'PostgreSQL', 'TailwindCSS'],
+                  title: 'Robô de Afiliados (Mercado Livre - WhatsApp & Telegram)',
+                  desc: 'Sistema automatizado de ponta a ponta para mineração, filtragem inteligente de descontos reais e disparo multicanal segmentado por nichos. Desenvolvido com arquitetura conteinerizada em Docker.',
+                  techs: ['Python', 'Playwright', 'BeautifulSoup', 'PostgreSQL', 'Redis', 'Docker'],
+                  github: 'https://github.com/BrenoMartins11',
+                  image: '/automacao-ml.gif', // Coloque o GIF ou vídeo na pasta public
                 }
-                
-                
               ].map((p, i) => (
                 <div key={i} className="bg-slate-800 rounded-xl overflow-hidden border border-slate-700 hover:-translate-y-2 transition-all duration-300 shadow-lg hover:shadow-indigo-500/20 flex flex-col h-full">
-                  <div className="h-48 flex items-center justify-center p-6 bg-slate-700/50 border-b border-slate-700">
-                    <HiOutlineCode className="text-slate-500 w-16 h-16 opacity-50" />
+                  {/* Área do GIF / Imagem do Projeto */}
+                  <div className="h-48 overflow-hidden bg-slate-900 border-b border-slate-700 relative group cursor-pointer" onClick={() => { setActiveVideo(p.image); setVideoModalOpen(true); }}>
+                    <img 
+                      src={p.image} 
+                      alt={p.title} 
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                      <span className="text-xs font-semibold bg-indigo-600 text-white px-3 py-1.5 rounded-full shadow-md">Clique para ampliar</span>
+                    </div>
                   </div>
+
                   <div className="p-6 flex-1 flex flex-col">
                     <h3 className="text-xl font-bold text-slate-100 mb-2">{p.title}</h3>
                     <p className="text-slate-400 text-sm mb-6 flex-1 leading-relaxed">{p.desc}</p>
@@ -322,10 +335,13 @@ export default function App() {
                       ))}
                     </div>
                     <div className="flex items-center gap-4 pt-4 border-t border-slate-700">
-                      <a href="https://github.com/BrenoMartins11" className="text-slate-300 hover:text-indigo-400 transition-colors flex items-center gap-1.5 text-sm font-medium">
+                      <a href={p.github} target="_blank" rel="noreferrer" className="text-slate-300 hover:text-indigo-400 transition-colors flex items-center gap-1.5 text-sm font-medium">
                         <FaGithub size={16} /> GitHub
                       </a>
-                      <button type="button" className="text-slate-300 hover:text-indigo-400 transition-colors flex items-center gap-1.5 text-sm font-medium">
+                      <button 
+                        onClick={() => { setActiveVideo(p.image); setVideoModalOpen(true); }} 
+                        className="text-slate-300 hover:text-indigo-400 transition-colors flex items-center gap-1.5 text-sm font-medium cursor-pointer"
+                      >
                         <FaExternalLinkAlt size={14} /> Ver Projeto
                       </button>
                     </div>
@@ -368,6 +384,30 @@ export default function App() {
           </div>
         </section>
       </main>
+
+      {/* Modal de Ampliação de Vídeo / GIF */}
+      {videoModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-fadeIn" onClick={() => setVideoModalOpen(false)}>
+          <div className="relative max-w-4xl w-full bg-slate-800 rounded-xl overflow-hidden border border-slate-700 shadow-2xl" onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center justify-between px-6 py-4 bg-slate-900 border-b border-slate-700">
+              <h3 className="text-lg font-bold text-white">Demonstração da Automação</h3>
+              <button 
+                onClick={() => setVideoModalOpen(false)}
+                className="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800 transition-colors"
+              >
+                <FiX size={24} />
+              </button>
+            </div>
+            <div className="p-4 bg-black flex items-center justify-center">
+              <img 
+                src={activeVideo} 
+                alt="Demonstração do Robô" 
+                className="max-h-[75vh] w-auto object-contain rounded-lg"
+              />
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Footer */}
       <footer className="py-8 text-center bg-slate-900 border-t border-slate-800">
